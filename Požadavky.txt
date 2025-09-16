@@ -1,0 +1,32 @@
+Požadavky pro udělení zápočtu
+Vypracování semestrálního projektu a jeho obhajoba
+Cílem semestrálního projektu je, abyste si vyzkoušeli různé metody analýzy časových řad probírané na hodinách. Jednotlivé metody byste měli umět nejen aplikovat, ale měli byste i chápat, co Vám výsledky říkají a měli byste je umět správně interpretovat.
+Skupiny
+Semestrální projekt se řeší ve skupinách o dvou až třech členech. Obhajuje se jednotlivě. K rozdělení do skupin dle volby studentů slouží tento modul.
+Data ke zpracování
+
+Každá skupina zpracovává jiná data. K určení dat ke zpracování slouží tento formulář (odkaz bude k dispozici později). Data ke zpracování si buď navrhne skupina sama (pak musí vyčkat na jejich schválení), nebo si nechá tato data určit (v tom případě v příslušné kolonce formuláře zadá "nechat určit").
+
+V nejbližších dnech zde bude k dispozici stránka o datových zdrojích založená převážně na Vašich materiálech (návodech), které jsou výstupem ze cvičení věnovaného zejména zdrojům ekonomických časových řad. Tato stránka by měla být inspirací k volbě dat ke zpracování.
+Formát výstupu a způsob odevzdání
+
+Výstupem projektu bude reprodukovatelný report (Rmd/Qmd s "chunky", případně alternativní pythonovský či jiný formát).
+
+K odevzdání semestrálního projektu slouží tento formulář (odkaz bude k dispozici později). Nejsou-li data součástí reportu (není-li v něm napojení na datový zdroj), pak se odevzdávají také potřebné (zpracovávané) datové soubory.
+Obhajoba projektu
+Zápočet se uděluje na základě úspěšné obhajoby semestrálního projektu. Každý člen skupiny obhajuje řešený projekt samostatně. Obhajobu zahajuje student prezentací odevzdaného. Následuje diskuse. Obhajoba probíhá před dvojicí vyučujících (dr. Černíková, dr. Škvor). Datum obhajoby se domluví po odevzdání reportu.
+Požadavky na řešení
+
+Zadání práce je hledání optimálního modelu pro zvolenou časovou řadu. Mělo by se jednat o časovou řadu s trendem a sezónností.
+Řešení by mělo obsahovat:
+
+    - grafické zobrazení řady + stručný komentář
+    - dekompozici + identifikaci trendu pomocí vyhlazení řady (klouzavé průměry či exponenciální vyrovnání)
+    - hledání optimálního modelu pro samotnou řadu (funkční zápis trendu + sezónnost; pomoci mohou dynamické modely)
+    - hledání optimálního modelu typu SARIMA
+    - hledání optimálního modelu pomocí závislostí na jiných řadách (identifikace řad, které mohou mít vliv, pomocí kroskorelační funkce + dynamické modely)
+    - kontrolu splnění předpokladů pomocí analýzy residuí příslušných modelů a úpravu modelů při nesplnění předpokladů (týká se kroků 3 až 5)
+    - u vhodných modelů predikci 10 budoucích pozorování, jejich vykreslení včetně intervalů spolehlivosti a komentář k výsledkům (který model Vám přijde pro predikci nejlepší)
+    - porovnání jednotlivých modelů a závěr
+
+U každého kroku by mělo být uvedeno, jakou metodu používáte a proč, co Vám z ní vyšlo a jak vypadá "optimální model" v daném kroku.
