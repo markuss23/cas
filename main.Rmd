@@ -20,14 +20,14 @@ library(readr)
 # Styl pro všechny grafy
 theme_set(theme_minimal(base_size = 14))
 ```
-
-# Grafické zobrazení řady + stručný komentář
-
-Komentář k datům
+# Komentář k datasetu
 
 Tato datová sada byla poskytnuta ve spolupráci s Datovým centrem Ústeckého kraje. Jedná se o záznamy z reálných senzorů MileSight EM300-TH, které jsou nasazeny v různých galeriích. Konkrétně tato data pocházejí z Galerie v Roudnici.
 Senzory monitorují podmínky v místnostech i venkovních prostorách a jejich hlavním účelem je ochrana majetku a zajištění vhodného prostředí.
 Měří vlhkost a teplotu, a zároveň uchovávají i záznam o stavu baterie.
+
+# Grafické zobrazení řady + stručný komentář
+
 
 ```{r}
 data = read_csv("dump.csv")
