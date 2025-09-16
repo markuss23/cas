@@ -1,5 +1,5 @@
 ---
-title: "Semestrální projekt – Analýza časových řad"
+title: "Semestrální projekt – Hledání optimálního modelu pro zvolenou časovou řadu"
 author: "Kseniia Mahalias, Marek Tremel"
 date: "2025"
 output:
