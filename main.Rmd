@@ -19,10 +19,6 @@ library(readr)
 
 # Styl pro všechny grafy
 theme_set(theme_minimal(base_size = 14))
-
-# globální barvy (viridis = moderní, konzistentní paleta)
-scale_fill_manual <- function(...) scale_fill_viridis_d(...)
-scale_color_manual <- function(...) scale_color_viridis_d(...)
 ```
 
 # Grafické zobrazení řady + stručný komentář
