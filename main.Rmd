@@ -1,0 +1,67 @@
+---
+title: "Semestrální projekt – Analýza časových řad"
+author: "Kseniia Mahalias, Marek Tremel"
+date: "2025"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: flatly        
+    highlight: tango     
+---
+
+```{r setup, include=FALSE}
+# nastavení knihoven a globální styl
+library(ggplot2)
+library(viridis)
+
+# minimální čistий styl pro všechny grafy
+theme_set(theme_minimal(base_size = 14))
+
+# globální barvy (viridis = moderní, konzistentní paleta)
+scale_fill_manual <- function(...) scale_fill_viridis_d(...)
+scale_color_manual <- function(...) scale_color_viridis_d(...)
+```
+
+# Grafické zobrazení řady + stručný komentář
+```{r}
+plot(AirPassengers, main = "Časová řada – AirPassengers") #example
+```
+
+
+# Dekompozice + identifikace trendu pomocí vyhlazení řady (klouzavé průměry či exponenciální vyrovnání)
+```{r}
+
+```
+
+# Hledání optimálního modelu pro samotnou řadu (funkční zápis trendu + sezónnost; pomoci mohou dynamické modely)
+```{r}
+
+```
+
+# Hledání optimálního modelu typu SARIMA
+```{r}
+
+```
+
+# Hledání optimálního modelu pomocí závislostí na jiných řadách (identifikace řad, které mohou mít vliv, pomocí kroskorelační funkce + dynamické modely)
+```{r}
+
+```
+
+# Kontrolu splnění předpokladů pomocí analýzy residuí příslušných modelů a úpravu modelů při nesplnění předpokladů (týká se kroků 3 až 5)
+```{r}
+
+```
+
+# U vhodných modelů predikci 10 budoucích pozorování, jejich vykreslení včetně intervalů spolehlivosti a komentář k výsledkům (který model Vám přijde pro predikci nejlepší)
+```{r}
+
+```
+
+# Porovnání jednotlivých modelů a závěr
+```{r}
+
+```
+
