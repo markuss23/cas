@@ -22,9 +22,13 @@ theme_set(theme_minimal(base_size = 14))
 ```
 # Komentář k datasetu
 
-Tato datová sada byla poskytnuta ve spolupráci s Datovým centrem Ústeckého kraje. Jedná se o záznamy z reálných senzorů MileSight EM300-TH, které jsou nasazeny v různých galeriích. Konkrétně tato data pocházejí z Galerie v Roudnici.
-Senzory monitorují podmínky v místnostech i venkovních prostorách a jejich hlavním účelem je ochrana majetku a zajištění vhodného prostředí.
-Měří vlhkost a teplotu, a zároveň uchovávají i záznam o stavu baterie.
+Tato datová sada byla poskytnuta ve spolupráci s Datovým centrem Ústeckého kraje. Jedná se o záznamy z reálných senzorů MileSight EM300-TH, které jsou nasazeny v různých galeriích. Konkrétně tato data pocházejí z Galerie v Roudnici. Senzory monitorují podmínky v místnostech i venkovních prostorách (eui-24e124785d034093-22) a jejich hlavním účelem je ochrana majetku a zajištění vhodného prostředí. Měří vlhkost a teplotu, a zároveň uchovávají i záznam o stavu baterie . Interval y mezi dvěma sousednimi merenimi 1 minuta (60 s). Jednotlivá pozorování mají stejné časové intervaly.Doufáme, že časova rada (hlavní) pro kterou budeme hledat optimalni model bude mít trend, sezonnost a cykličnost. tohle overime v nasledujich krocich pomocí grafu a decompozice časové řady. Tato datova sada je optimálni protože nejsou v ni prehistorická data. Zvolili jsme delku 2023-08 až 2025-08. Data představují vícero rozměrovou řadu, která obashuje více potenciáních  zavislych složek (řad)
+- teplota
+- vlhkost
+- battery ... nepouzvame protoze je to monotonni klesajici funkce. muze např. souviset s intezitou mereninema sezonnost .. nesplnuje podminkou pro vyber řady.
+- z kazdeho device_id lze udělat vlastní řadu pro prozkoumani
+
+zvolili jsme hlavní řadu teplotu pro jedne cidlo a to venkovní eui-24e124785d034093-22. je to fyziklane podmiena velicina. predpokladame že bude mít velmi vyrazne seonni slozku (den noc, zima, leto) dále předpokládáme, že vlhkost bude silně korelovaná s teplotou. toto budeme zkoumat. doufáme že bude videt trend. Mame kratsi casove obodobi. nemusi byt hnedka zretelne videt až vůbbec vidět.  Pokusíme se najít cykličnost i když mame pravděpodobně kratší období. 
 
 # Grafické zobrazení řady + stručný komentář
 
@@ -43,17 +47,61 @@ ggplot(data, aes(x = `_time`, y = temperature, color = device_id)) +
 ```
 
 ```{r}
+data = read_csv("dump.csv")
+
+
 ggplot(data, aes(x = `_time`, y = humidity, color = device_id)) +
   geom_line(alpha = 0.7) +
   labs(title = "Časová řada vlhkosti (všechna zařízení)",
-       x = "Čas", y = "Relativní vlhkost [%]",
+       x = "Čas", y = "Vlhkost [°%]",
        color = "Zařízení") +
   theme_minimal()
+
 ```
+
+ukázka casov e rad teploty a vlhkosti originálního nezpracovného datasetu. Kde jsou všechny senzory bez nějakého zasahu.
+
+
+
+```{r}
+data = data %>%  filter(device_id == "eui-24e124785d034093-22")
+
+ggplot(data, aes(x = `_time`, y = temperature, color = device_id)) +
+  geom_line(alpha = 0.7) +
+  labs(title = "Časová řada teploty (všechna zařízení)",
+       x = "Čas", y = "Teplota [°C]",
+       color = "Zařízení") +
+  theme_minimal() +
+    scale_x_datetime(date_breaks = "1 month", date_labels = "%Y-%m") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+ukázka již venkovního senzoru, který jsme zvolili pro analýzu
+
 
 # Dekompozice + identifikace trendu pomocí vyhlazení řady (klouzavé průměry či exponenciální vyrovnání)
 
 ```{r}
+df <- data %>%
+  filter(device_id == "eui-24e124136c489130-03") %>%
+  mutate(hour = floor_date(`_time`, "hour")) %>%
+  group_by(hour) %>%
+  summarise(temperature = mean(temperature, na.rm = TRUE), .groups = "drop") %>%
+  arrange(hour)
+
+grid <- tibble(hour = seq(min(df$hour), max(df$hour), by = "1 hour"))
+
+df_full <- grid %>%
+  left_join(df, by = "hour") %>%
+  mutate(temperature = na_interpolation(temperature, option = "linear"))
+
+temp_ts <- ts(df_full$temperature, frequency = 24)
+
+
+dec_add <- decompose(temp_ts, type = "additive")
+plot(dec_add)  # title přidej zvlášť, pokud chceš
+title("Aditivní dekompozice: teplota (24h sezónnost)")
 
 ```
 
